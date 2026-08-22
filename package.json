@@ -4,10 +4,13 @@
   "private": true,
   "scripts": {
     "build": "turbo build",
+    "build:web": "pnpm --filter web run build",
     "dev": "turbo dev",
+    "dev:web": "pnpm --filter web run dev",
     "lint": "turbo lint",
     "format": "turbo format",
-    "typecheck": "turbo typecheck"
+    "typecheck": "turbo typecheck",
+    "registry:build": "pnpm --dir packages/ui exec shadcn build"
   },
   "devDependencies": {
     "prettier": "^3.8.3",

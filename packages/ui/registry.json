@@ -1,0 +1,31 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "levi",
+  "homepage": "https://github.com/cgfeel/shadcn-react-component",
+  "items": [
+    {
+      "name": "login",
+      "type": "registry:component",
+      "title": "Login Component",
+      "description": "A simple login component, contain layouts and components.",
+      "files": [
+        {
+          "path": "src/components/blocks/login/index.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "card",
+      "type": "registry:ui",
+      "title": "Card",
+      "description": "A card component with size variants.",
+      "files": [
+        {
+          "path": "src/components/card.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    }
+  ]
+}

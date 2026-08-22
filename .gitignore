@@ -18,6 +18,10 @@ dist-ssr
 # turbo
 .turbo
 
+# build outputs
+.next
+packages/ui/public
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

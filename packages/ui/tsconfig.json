@@ -9,6 +9,7 @@
     "strict": true,
     "noEmit": true,
     "paths": {
+      "@/registry/levi/*": ["./src/*"],
       "@workspace/ui/*": ["./src/*"]
     }
   },

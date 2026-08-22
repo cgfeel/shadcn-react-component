@@ -1,4 +1,5 @@
-/* eslint-disable react-refresh/only-export-components */
+"use client"
+import generateStore from "@/utils/generateStorage"
 import * as React from "react"
 
 type Theme = "dark" | "light" | "system"
@@ -77,6 +78,16 @@ function isEditableTarget(target: EventTarget | null) {
   return false
 }
 
+const themeScope = ["dark", "light", "system"] as const
+
+function useLazyRef<T>(factory: () => T) {
+  const ref = React.useRef<T | null>(null)
+  if (!ref.current) {
+    ref.current = factory()
+  }
+  return ref as React.RefObject<T>
+}
+
 export function ThemeProvider({
   children,
   defaultTheme = "system",
@@ -84,19 +95,29 @@ export function ThemeProvider({
   disableTransitionOnChange = true,
   ...props
 }: ThemeProviderProps) {
-  const [theme, setThemeState] = React.useState<Theme>(() => {
-    const storedTheme = localStorage.getItem(storageKey)
-    if (isTheme(storedTheme)) {
-      return storedTheme
-    }
+  const storageRef = useLazyRef(() =>
+    generateStore(themeScope, storageKey, defaultTheme)
+  )
 
-    return defaultTheme
-  })
+  const theme = React.useSyncExternalStore(
+    storageRef.current.subscribe,
+    storageRef.current.getSnapshot,
+    storageRef.current.getServerSnapshot
+  )
+
+  // const [theme, setThemeState] = React.useState<Theme>(() => {
+  //   const storedTheme = localStorage.getItem(storageKey)
+  //   if (isTheme(storedTheme)) {
+  //     return storedTheme
+  //   }
+
+  //   return defaultTheme
+  // })
 
   const setTheme = React.useCallback(
     (nextTheme: Theme) => {
-      localStorage.setItem(storageKey, nextTheme)
-      setThemeState(nextTheme)
+      // localStorage.setItem(storageKey, nextTheme)
+      storageRef.current.setPersistentSnapshot(nextTheme)
     },
     [storageKey]
   )
@@ -121,7 +142,14 @@ export function ThemeProvider({
   )
 
   React.useEffect(() => {
-    applyTheme(theme)
+    const stored = localStorage.getItem(storageKey)
+    if (isTheme(stored)) {
+      storageRef.current.setSnapshot(stored)
+    }
+  }, [storageKey])
+
+  React.useEffect(() => {
+    if (theme) applyTheme(theme)
 
     if (theme !== "system") {
       return undefined
@@ -157,19 +185,26 @@ export function ThemeProvider({
         return
       }
 
-      setThemeState((currentTheme) => {
-        const nextTheme =
-          currentTheme === "dark"
-            ? "light"
-            : currentTheme === "light"
-              ? "dark"
-              : getSystemTheme() === "dark"
-                ? "light"
-                : "dark"
-
-        localStorage.setItem(storageKey, nextTheme)
-        return nextTheme
+      storageRef.current.setPersistentSnapshot((currentTheme) => {
+        return (
+          (currentTheme === "dark" ? "light" : undefined) ??
+          (currentTheme === "light" ? "dark" : undefined) ??
+          (getSystemTheme() === "dark" ? "light" : "dark")
+        )
       })
+      // setThemeState((currentTheme) => {
+      //   const nextTheme =
+      //     currentTheme === "dark"
+      //       ? "light"
+      //       : currentTheme === "light"
+      //         ? "dark"
+      //         : getSystemTheme() === "dark"
+      //           ? "light"
+      //           : "dark"
+
+      //   localStorage.setItem(storageKey, nextTheme)
+      //   return nextTheme
+      // })
     }
 
     window.addEventListener("keydown", handleKeyDown)
@@ -190,11 +225,11 @@ export function ThemeProvider({
       }
 
       if (isTheme(event.newValue)) {
-        setThemeState(event.newValue)
+        storageRef.current.setPersistentSnapshot(event.newValue)
         return
       }
 
-      setThemeState(defaultTheme)
+      storageRef.current.setPersistentSnapshot(defaultTheme)
     }
 
     window.addEventListener("storage", handleStorageChange)
@@ -206,7 +241,7 @@ export function ThemeProvider({
 
   const value = React.useMemo(
     () => ({
-      theme,
+      theme: theme ?? defaultTheme,
       setTheme,
     }),
     [theme, setTheme]
