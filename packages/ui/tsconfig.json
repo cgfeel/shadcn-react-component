@@ -9,6 +9,8 @@
     "strict": true,
     "noEmit": true,
     "paths": {
+      "@/ui": ["./src/components"],
+      "@/ui/*": ["./src/components/*"],
       "@/registry/levi/*": ["./src/*"],
       "@workspace/ui/*": ["./src/*"]
     }
