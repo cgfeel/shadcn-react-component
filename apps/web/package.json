@@ -21,15 +21,6 @@
     "react-dom": "^19.2.6"
   },
   "devDependencies": {
-    "@eslint/js": "^10",
-    "@types/node": "^24",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "babel-plugin-react-compiler": "^1.0.0",
-    "eslint": "^10",
-    "eslint-plugin-react-hooks": "^7.1.1",
-    "globals": "^17",
-    "typescript": "~6",
-    "typescript-eslint": "^8"
+    "babel-plugin-react-compiler": "^1.0.0"
   }
 }

@@ -1,11 +1,10 @@
-import * as React from "react"
-import useEmblaCarousel, {
-  type UseEmblaCarouselType,
-} from "embla-carousel-react"
+import type { UseEmblaCarouselType } from "embla-carousel-react"
 
+import useEmblaCarousel from "embla-carousel-react"
+import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react"
+import * as React from "react"
 import { cn } from "@/registry/levi/lib/utils"
 import { Button } from "@/ui/button"
-import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react"
 
 type CarouselApi = UseEmblaCarouselType[1]
 type UseCarouselParameters = Parameters<typeof useEmblaCarousel>
@@ -93,7 +92,12 @@ function Carousel({
 
   React.useEffect(() => {
     if (!api) return
+
+    // 想完全符合 React 19 / Compiler 的理念，那其实应该进一步改成 useSyncExternalStore
+    // 因为 Embla API 本身就是一个 external store。
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     onSelect(api)
+
     api.on("reInit", onSelect)
     api.on("select", onSelect)
 
@@ -186,7 +190,7 @@ function CarouselPrevious({
         "absolute touch-manipulation rounded-full",
         orientation === "horizontal"
           ? "inset-y-0 -start-12 my-auto"
-          : "-top-12 start-1/2 -translate-x-1/2 rtl:translate-x-1/2 rotate-90",
+          : "start-1/2 -top-12 -translate-x-1/2 rotate-90 rtl:translate-x-1/2",
         className
       )}
       disabled={!canScrollPrev}
@@ -216,7 +220,7 @@ function CarouselNext({
         "absolute touch-manipulation rounded-full",
         orientation === "horizontal"
           ? "inset-y-0 -end-12 my-auto"
-          : "-bottom-12 start-1/2 -translate-x-1/2 rtl:translate-x-1/2 rotate-90",
+          : "start-1/2 -bottom-12 -translate-x-1/2 rotate-90 rtl:translate-x-1/2",
         className
       )}
       disabled={!canScrollNext}
