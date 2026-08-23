@@ -4,13 +4,13 @@
   "homepage": "https://github.com/cgfeel/shadcn-react-component",
   "items": [
     {
-      "name": "login",
+      "name": "auth",
       "type": "registry:component",
-      "title": "Login Component",
-      "description": "A simple login component, contain layouts and components.",
+      "title": "Auth Component",
+      "description": "A simple auth component, contain layouts and components.",
       "files": [
         {
-          "path": "src/components/blocks/login/index.tsx",
+          "path": "src/components/blocks/auth/index.tsx",
           "type": "registry:component"
         }
       ]
@@ -32,12 +32,8 @@
       "type": "registry:ui",
       "title": "Carousel",
       "description": "A carousel component with built-in prev/next buttons.",
-      "dependencies": [
-        "embla-carousel-react"
-      ],
-      "registryDependencies": [
-        "button"
-      ],
+      "dependencies": ["embla-carousel-react"],
+      "registryDependencies": ["button"],
       "files": [
         {
           "path": "src/components/carousel.tsx",
