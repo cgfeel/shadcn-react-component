@@ -16,16 +16,29 @@
       ]
     },
     {
-      "name": "card",
-      "type": "registry:ui",
-      "title": "Card",
-      "description": "A card component with size variants.",
+      "name": "gsap-tabs",
+      "type": "registry:component",
+      "title": "Tabs Component",
+      "description": "A simple tabs component based on gsap.",
       "files": [
         {
-          "path": "src/components/card.tsx",
-          "type": "registry:ui"
+          "path": "src/components/blocks/tabs/Container.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/blocks/tabs/index.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/blocks/tabs/Indicator.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/blocks/tabs/TabItem.tsx",
+          "type": "registry:component"
         }
-      ]
+      ],
+      "dependencies": ["gsap", "@gsap/react"]
     },
     {
       "name": "carousel",
