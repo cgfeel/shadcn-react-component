@@ -10,8 +10,15 @@ const style = cva([
   "group-data-[layout=full]/auth-container:h-screen",
 ])
 
-const Wrapper: FC<PropsWithChildren> = ({ children }) => {
-  return <div className={style()}>{children}</div>
+const Wrapper: FC<PropsWithChildren<WrapperProps>> = ({
+  children,
+  className,
+}) => {
+  return <div className={style({ className })}>{children}</div>
 }
 
 export default Wrapper
+
+interface WrapperProps {
+  className?: string
+}

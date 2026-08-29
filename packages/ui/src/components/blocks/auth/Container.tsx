@@ -21,10 +21,11 @@ const container = cva(
 
 const Container: FC<PropsWithChildren<ContainerProps>> = ({
   children,
+  className,
   layout = defaultLayout,
 }) => {
   return (
-    <div className={container({ layout })} data-layout={layout}>
+    <div className={container({ className, layout })} data-layout={layout}>
       {children}
     </div>
   )
@@ -32,4 +33,6 @@ const Container: FC<PropsWithChildren<ContainerProps>> = ({
 
 export default Container
 
-type ContainerProps = VariantProps<typeof container>
+interface ContainerProps extends VariantProps<typeof container> {
+  className?: string
+}

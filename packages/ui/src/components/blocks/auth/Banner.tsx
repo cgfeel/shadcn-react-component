@@ -1,7 +1,18 @@
 import type { FC, PropsWithChildren } from "react"
 
-const maskSvg = encodeURIComponent(`
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 550 1440" preserveAspectRatio="none">
+import { cva } from "class-variance-authority"
+
+const style = cva([
+  "absolute",
+  "inset-0",
+  "bg-[#102840]",
+  "max-h-[1728px]",
+  "max-w-[660px]",
+  "shadow-[inset_0_0_30px_rgba(0,0,0,0.5)]",
+])
+
+const maskSvg = encodeURIComponent(
+  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 550 1440" preserveAspectRatio="xMinYMin slice">
   <g>
     <style>
       .combined-path {
@@ -42,12 +53,12 @@ const maskSvg = encodeURIComponent(`
     </style>
     <path class="blob" fill="white" d="M0,-48 C22,-56 32,-30 28,0 C24,30 20,52 0,46 C-16,40 -28,22 -26,-6 C-24,-34 -16,-52 0,-48 Z" />
   </g>
-</svg>
-`)
+</svg>`
+)
 
 const Banner: FC<PropsWithChildren> = ({ children }) => (
   <div
-    className="absolute inset-0 bg-[#102840]"
+    className={style()}
     style={{
       maskImage: `url("data:image/svg+xml,${maskSvg}")`,
       WebkitMaskImage: `url("data:image/svg+xml,${maskSvg}")`,

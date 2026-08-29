@@ -8,6 +8,7 @@ export { default as AuthAnime } from "./Anime"
 export { default as AuthBanner } from "./Banner"
 export { default as AuthContainer } from "./Container"
 export { default as AuthGroup } from "./Group"
+export { default as AuthItem } from "./Items"
 export { default as AuthWrapper } from "./Wrapper"
 
 export default Auth

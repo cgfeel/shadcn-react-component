@@ -14,21 +14,34 @@ const baseStyle = cva([
   "z-1",
 ])
 
-const earthStyle = cva(["w-full", "h-60"])
+const mask = cva([
+  "hidden",
+  "w-full",
+  "h-40",
+  "z-10",
+  "bg-gradient-to-t",
+  "from-black",
+  "to-transparent",
+  "group-data-[layout=full]/auth-container:[@media(min-height:1729px)]:block",
+])
 
-const handleStyle = cva(["w-64", "h-80", "left-[-20px]", "z-2"])
+const earthContainer = cva(["w-full", "h-auto"])
+
+const earthInner = cva(["max-w-260", "h-60"])
+
+const handleStyle = cva(["w-64", "h-100", "left-[-20px]", "z-2"])
 
 const spriteStyle = cva(["h-full", "w-full", "bg-no-repeat", "bg-contain"])
 
-const start1Style = cva(["w-92", "h-80", "left-[-80px]", "bottom-120", "z-3"])
+const planetRed = cva(["w-87", "h-56", "left-[-80px]", "bottom-[64%]", "z-3"])
 
-const start2Style = cva(["w-92", "h-60", "left-[160px]", "bottom-73", "z-3"])
+const planetBlue = cva(["left-[30%]", "bottom-[38%]", "z-3", "h-50", "w-60"])
 
-const start3Style = cva(["w-62", "h-60", "left-[260px]", "bottom-143", "z-3"])
+const planetDark = cva(["w-42", "h-34", "left-[54%]", "bottom-[74%]", "z-3"])
 
-const dot1Style = cva(["w-90", "h-30", "left-[10px]", "bottom-23", "z-1"])
+const dot1Style = cva(["w-70", "h-20", "left-[40px]", "bottom-33", "z-1"])
 
-const dot2Style = cva(["w-50", "h-20", "left-[70px]", "bottom-83", "z-4"])
+const dot2Style = cva(["w-54", "h-10", "left-[16%]", "bottom-[46%]", "z-4"])
 
 const SpriteSheet: FC<SpriteSheetProps> = ({ className }) => {
   return (
@@ -41,8 +54,10 @@ const SpriteSheet: FC<SpriteSheetProps> = ({ className }) => {
 
 const Earth: FC = () => {
   return (
-    <div className={cn([baseStyle(), earthStyle()])}>
-      <SpriteSheet className="bg-size-[auto_300%] bg-position-[70%_60%]" />
+    <div className={cn([baseStyle(), earthContainer()])}>
+      <div className={earthInner()}>
+        <SpriteSheet className="bg-size-[auto_300%] bg-position-[-377px_-290px]" />
+      </div>
     </div>
   )
 }
@@ -50,31 +65,31 @@ const Earth: FC = () => {
 const Hand: FC = () => {
   return (
     <div className={cn([baseStyle(), handleStyle()])}>
-      <SpriteSheet className="rotate-[-20deg] bg-size-[auto_246%] bg-position-[6%_65%]" />
+      <SpriteSheet className="bg-size-[490%_246%] bg-position-[-70px_65%]" />
     </div>
   )
 }
 
-const Start1: FC = () => {
+const StarRed: FC = () => {
   return (
-    <div className={cn([baseStyle(), start1Style()])}>
-      <SpriteSheet className="bg-size-[auto_200%] bg-position-[0%_-20%]" />
+    <div className={cn([baseStyle(), planetRed()])}>
+      <SpriteSheet className="bg-size-[auto_270%] bg-position-[0%_-10px]" />
     </div>
   )
 }
 
-const Start2: FC = () => {
+const StarBlue: FC = () => {
   return (
-    <div className={cn([baseStyle(), start2Style()])}>
-      <SpriteSheet className="bg-size-[auto_180%] bg-position-[88%_-20%]" />
+    <div className={cn([baseStyle(), planetBlue()])}>
+      <SpriteSheet className="bg-size-[auto_270%] bg-position-[-308px_-24px]" />
     </div>
   )
 }
 
-const Start3: FC = () => {
+const StarDark: FC = () => {
   return (
-    <div className={cn([baseStyle(), start3Style()])}>
-      <SpriteSheet className="bg-size-[auto_200%] bg-position-[108%_-20%]" />
+    <div className={cn([baseStyle(), planetDark()])}>
+      <SpriteSheet className="bg-size-[auto_320%] bg-position-[-470px_-36px]" />
     </div>
   )
 }
@@ -82,7 +97,7 @@ const Start3: FC = () => {
 const Small1Dot: FC = () => {
   return (
     <div className={cn([baseStyle(), dot1Style()])}>
-      <SpriteSheet className="bg-size-[auto_400%] bg-position-[110%_108%]" />
+      <SpriteSheet className="bg-size-[auto_590%] bg-position-[-420px_-380px]" />
     </div>
   )
 }
@@ -90,7 +105,7 @@ const Small1Dot: FC = () => {
 const Small2Dot: FC = () => {
   return (
     <div className={cn([baseStyle(), dot2Style()])}>
-      <SpriteSheet className="bg-size-[auto_300%] bg-position-[0%_120%]" />
+      <SpriteSheet className="bg-size-[auto_600%] bg-position-[0_-192px]" />
     </div>
   )
 }
@@ -100,11 +115,12 @@ const Anime: FC = () => {
     <>
       <Earth />
       <Hand />
-      <Start1 />
-      <Start2 />
-      <Start3 />
+      <StarRed />
+      <StarBlue />
+      <StarDark />
       <Small1Dot />
       <Small2Dot />
+      <div className={cn([baseStyle(), mask()])} />
     </>
   )
 }
